@@ -24,7 +24,7 @@ func resourceElasticsearchWatch() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
-			"watch_json": &schema.Schema{
+			"body": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
 			},
@@ -40,6 +40,7 @@ func resourceElasticsearchWatchCreate(d *schema.ResourceData, m interface{}) err
 	watchID := d.Get("watch_id").(string)
 	_, err := resourceElasticsearchGetWatch(watchID, m)
 	if !elastic6.IsNotFound(err) {
+		log.Printf("[INFO] watch exists: %+v", err)
 		return fmt.Errorf("watch already exists with ID: %v", watchID)
 	}
 
@@ -75,7 +76,7 @@ func resourceElasticsearchWatchRead(d *schema.ResourceData, m interface{}) error
 	}
 
 	d.Set("watch_id", d.Id())
-	d.Set("watch_json", response.Watch)
+	d.Set("body", response.Watch)
 
 	return nil
 }
@@ -132,7 +133,7 @@ func resourceElasticsearchGetWatch(watchID string, m interface{}) (*elastic6.Res
 
 func resourceElasticsearchPutWatch(d *schema.ResourceData, m interface{}) (string, error) {
 	watchID := d.Get("watch_id").(string)
-	watchJSON := d.Get("watch_json").(string)
+	watchJSON := d.Get("body").(string)
 
 	var err error
 	switch m.(type) {
