@@ -6,6 +6,7 @@ import (
 	"os"
 	"testing"
 
+  elastic7 "github.com/olivere/elastic/v7"
 	elastic6 "gopkg.in/olivere/elastic.v6"
 
 	"github.com/hashicorp/terraform/helper/resource"
@@ -48,9 +49,12 @@ func testCheckElasticsearchWatchExists(name string) resource.TestCheckFunc {
 
 		var err error
 		switch meta.(type) {
-		case *elastic6.Client:
+		case *elastic7.Client:
+      client := meta.(*elastic7.Client)
+      _, err = client.XPackWatchGet("my_watch").Do(context.TODO())
+    case *elastic6.Client:
 			client := meta.(*elastic6.Client)
-			_, err = client.XPackWatchGet().Id("my_watch").Do(context.TODO())
+			_, err = client.XPackWatchGet("my_watch").Do(context.TODO())
 		default:
 		}
 
@@ -72,9 +76,12 @@ func testCheckElasticsearchWatchDestroy(s *terraform.State) error {
 
 		var err error
 		switch meta.(type) {
-		case *elastic6.Client:
+		case *elastic7.Client:
+      client := meta.(*elastic7.Client)
+      _, err = client.XPackWatchGet("my_watch").Do(context.TODO())
+    case *elastic6.Client:
 			client := meta.(*elastic6.Client)
-			_, err = client.XPackWatchGet().Id("my_watch").Do(context.TODO())
+			_, err = client.XPackWatchGet("my_watch").Do(context.TODO())
 		default:
 		}
 
