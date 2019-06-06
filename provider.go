@@ -95,12 +95,13 @@ func Provider() terraform.ResourceProvider {
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
-			"elasticsearch_index_template":      resourceElasticsearchIndexTemplate(),
-			"elasticsearch_snapshot_repository": resourceElasticsearchSnapshotRepository(),
-			"elasticsearch_kibana_object":       resourceElasticsearchKibanaObject(),
-			"elasticsearch_watch":               resourceElasticsearchWatch(),
-			"elasticsearch_monitor":             resourceElasticsearchMonitor(),
-			"elasticsearch_destination":         resourceElasticsearchDestination(),
+			"elasticsearch_index_template":         resourceElasticsearchIndexTemplate(),
+			"elasticsearch_snapshot_repository":    resourceElasticsearchSnapshotRepository(),
+			"elasticsearch_kibana_object":          resourceElasticsearchKibanaObject(),
+			"elasticsearch_watch":                  resourceElasticsearchWatch(),
+			"elasticsearch_monitor":                resourceElasticsearchMonitor(),
+			"elasticsearch_destination":            resourceElasticsearchDestination(),
+			"elasticsearch_index_lifecycle_policy": resourceElasticsearchIndexLifecyclePolicy(),
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
