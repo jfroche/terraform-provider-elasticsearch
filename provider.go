@@ -102,6 +102,7 @@ func Provider() terraform.ResourceProvider {
 			"elasticsearch_monitor":                resourceElasticsearchMonitor(),
 			"elasticsearch_destination":            resourceElasticsearchDestination(),
 			"elasticsearch_index_lifecycle_policy": resourceElasticsearchIndexLifecyclePolicy(),
+			"elasticsearch_ingest_pipeline":        resourceElasticsearchIngestPipeline(),
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
